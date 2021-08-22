@@ -9,16 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      matrix:
+        pkgname: [linux-xanmod]
     steps:
+      - uses: actions/checkout@v2
       - name: Clone test repo
-        uses: actions/checkout@v2
+        run: git clone https://aur.archlinux.org/${{ matrix.pkgname }}.git
       - name: Build Package
         uses: ouuan/pkgbuild-action@master
         id: build-package
         with:
-          path: linux-xanmod
+          path: ${{ matrix.pkgname }}
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: linux-xanmod-${{ github.run_id }}
+          name: ${{ matrix.pkgname }}-${{ github.run_id }}
           path: ${{ steps.build-package.outputs.pkgfile }}
