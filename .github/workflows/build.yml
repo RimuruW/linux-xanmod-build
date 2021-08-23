@@ -3,7 +3,7 @@ name: Build
 on: [push]
 
 env:
-  _microarchitecture: 17
+  _microarchitecture: 14
 jobs:
   test:
     runs-on: ubuntu-latest
