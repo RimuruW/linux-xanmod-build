@@ -5,23 +5,23 @@ on: [push]
 env:
   _microarchitecture: 17
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        pkgname: [linux-xanmod-anbox]
+        pkgname: [linux-xanmod, linux-xanmod-headers]
     steps:
       - uses: actions/checkout@v2
       - name: Clone test repo
         run: git clone https://aur.archlinux.org/${{ matrix.pkgname }}.git
-      - name: Build Package
-        uses: ouuan/pkgbuild-action@master
+      - name: Build package
+        uses: ./
         id: build-package
         with:
           path: ${{ matrix.pkgname }}
-      - name: Upload Artifacts
+      - name: Upload package
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.pkgname }}-${{ github.run_id }}
+          name: ${{ matrix.pkgname }}-package-${{ github.run_id }}
           path: ${{ steps.build-package.outputs.pkgfile }}
