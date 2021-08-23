@@ -1,6 +1,8 @@
 name: Build
 
-on: [push]
+on:
+  watch:
+    types: [started]
 
 env:
   _microarchitecture: 14
@@ -10,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        pkgname: [linux-xanmod, linux-xanmod-headers]
+        pkgname: [linux-xanmod]
     steps:
       - uses: actions/checkout@v2
       - name: Clone test repo
