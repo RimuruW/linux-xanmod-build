@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        pkgname: [linux-xanmod]
+        pkgname: [linux-xanmod, linux-xanmod-anbox]
     steps:
       - uses: actions/checkout@v2
       - name: Clone test repo
