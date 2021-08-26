@@ -26,4 +26,10 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.pkgname }}-package-${{ github.run_id }}
-          path: ${{ steps.build-package.outputs.pkgfile }}
+          path: |
+            ${{ steps.build-package.outputs.pkgfile }}
+      - name: Upload whole directory
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.pkgname }}-directory-${{ github.run_id }}
+          path: ${{ matrix.pkgname }}/**
