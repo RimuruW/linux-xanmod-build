@@ -53,7 +53,10 @@ echo "::endgroup::"
 
 echo "::group::Show package info"
 source /etc/makepkg.conf # get PKGEXT
-files=("${pkgname}-"*"${PKGEXT}")
+files=(
+    "${pkgname}-"*"${PKGEXT}"
+    ""${pkgname}-headers-"*"${PKGEXT}""
+)
 pkgfile="${files[0]}"
 echo "::set-output name=pkgfile::${pkgfile}"
 pacman -Qip "${pkgfile}"
